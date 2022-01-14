@@ -23,7 +23,7 @@ teamnamecomponents = ["Athletic", "Wanderers", "City", "Town", "United", "Tackle
 teams = []
 
 
-# Dice, random number between low and high
+# Dice, returns a random number between parameters, low and high
 
 
 def dice(low, high):

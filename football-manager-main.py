@@ -1,8 +1,8 @@
 import random
 
-players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': 'forward',
+players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': 'Forward',
                                      'AttackSkill': 7, 'DefSkill': 3, 'Team': 'Athletico Mince'},
-                    DouglasUppity={'Name': 'Douglas Uppity', 'Position': 'forward',
+                    DouglasUppity={'Name': 'Douglas Uppity', 'Position': 'Forward',
                                    'AttackSkill': 4, 'DefSkill': 6, 'Team': 'Athletico Mince'})
 
 
@@ -27,10 +27,18 @@ teams = ['Athletico Mince']
 
 def printdictionary(dictionary):
     for p_id, p_info in dictionary.items():
-        print("\nPerson ID:", p_id)
+        print("\nDict ID:", p_id)
 
         for key in p_info:
             print(key + ':', p_info[key])
+
+searchresult = []
+
+def dictonarysearch(dictionary, item, search):
+
+    for p_id, p_info in dictionary.items():
+        if p_info[item] == search:
+            searchresult.append(p_id)
 
 
 # Dice, returns a random number between parameters, low and high
@@ -159,10 +167,16 @@ defn = ''
 
 # Makes players
 
-while len(players_dict.keys()) < 100:
+while len(players_dict.keys()) < 120:
     newplayer()
 
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
-printdictionary(players_dict)
+#printdictionary(players_dict)
+
+# looks for an item in a nested dictionary matching a search, returns them as a list called search result
+
+
+dictonarysearch(players_dict, 'Team', 'Athletico Mince')
+print(searchresult)

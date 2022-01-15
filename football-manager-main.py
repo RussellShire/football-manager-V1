@@ -34,7 +34,7 @@ def printdictionary(dictionary):
 
 searchresult = []
 
-def dictonarysearch(dictionary, item, search):
+def dictionarysearch(dictionary, item, search):
 
     for p_id, p_info in dictionary.items():
         if p_info[item] == search:
@@ -173,10 +173,11 @@ while len(players_dict.keys()) < 120:
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
-#printdictionary(players_dict)
+#printdict
+# onary(players_dict)
 
 # looks for an item in a nested dictionary matching a search, returns them as a list called search result
 
 
-dictonarysearch(players_dict, 'Team', 'Athletico Mince')
+dictionarysearch(players_dict, 'Team', 'Athletico Mince')
 print(searchresult)

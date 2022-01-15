@@ -23,6 +23,16 @@ teamnamecomponents = ["Athletic", "Wanderers", "City", "Town", "United", "Tackle
 teams = ['Athletico Mince']
 
 
+#prints through the nested player dictionary and prints in a pretty format
+
+def printdictionary(dictionary):
+    for p_id, p_info in dictionary.items():
+        print("\nPerson ID:", p_id)
+
+        for key in p_info:
+            print(key + ':', p_info[key])
+
+
 # Dice, returns a random number between parameters, low and high
 
 
@@ -155,11 +165,4 @@ while len(players_dict.keys()) < 100:
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
-
-#prints through the nested player dictionary and prints in a pretty format
-
-for p_id, p_info in players_dict.items():
-    print("\nPerson ID:", p_id)
-
-    for key in p_info:
-        print(key + ':', p_info[key])
+printdictionary(players_dict)

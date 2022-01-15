@@ -3,7 +3,7 @@ import random
 players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': 'forward',
                                      'AttackSkill': 7, 'DefSkill': 3, 'Team': 'Athletico Mince'},
                     DouglasUppity={'Name': 'Douglas Uppity', 'Position': 'forward',
-                                   'AttackSkill': 4, 'DefSkill': 6, 'Team': ''})
+                                   'AttackSkill': 4, 'DefSkill': 6, 'Team': 'Athletico Mince'})
 
 
 names = ["Farter", "Frank", "Bruce", "Butcher", "Eddie", "Edward", "Russell", "Marion", "Butch",
@@ -20,7 +20,7 @@ towns = ["Altringham", "Bolton", "Chorlton", "Stockport", "Audenshaw", "Blackrod
 teamnamecomponents = ["Athletic", "Wanderers", "City", "Town", "United", "Tacklers", "Rovers", "Arsewipes",
                       "Rangers", "County", "Forest", "FC", "Downandouts", "Under 15s", "Kickers", "Bastards"]
 
-teams = []
+teams = ['Athletico Mince']
 
 
 # Dice, returns a random number between parameters, low and high
@@ -156,4 +156,10 @@ possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
 
-print(players_dict)
+#prints through the nested player dictionary and prints in a pretty format
+
+for p_id, p_info in players_dict.items():
+    print("\nPerson ID:", p_id)
+
+    for key in p_info:
+        print(key + ':', p_info[key])

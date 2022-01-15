@@ -3,7 +3,7 @@ import random
 players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': 'forward',
                                      'AttackSkill': 7, 'DefSkill': 3, 'Team': 'Athletico Mince'},
                     DouglasUppity={'Name': 'Douglas Uppity', 'Position': 'forward',
-                                   'AttackSkill': 4, 'DefSkill': 6, 'Team': 'Your Local Rivals'})
+                                   'AttackSkill': 4, 'DefSkill': 6, 'Team': ''})
 
 
 names = ["Farter", "Frank", "Bruce", "Butcher", "Eddie", "Edward", "Russell", "Marion", "Butch",
@@ -96,9 +96,13 @@ def playerskills():
 def newplayer():
     namegen()
     playerskills()
-    players_dict[namecode] = \
-        {'Name': newname, 'Position': '', 'AttackSkill': attackskill, 'DefSkill': defskill, 'Team': ''}
-
+    teamsgen()
+    players_dict[namecode] = {}
+    players_dict[namecode]['Name'] = newname
+    players_dict[namecode]['Position'] = ''
+    players_dict[namecode]['AttackSkill'] = attackskill
+    players_dict[namecode]['DefSkill'] = defskill
+    players_dict[namecode]['Team'] = randlistitem(teams)
 
 def adjective(attk, defn):
     global adject
@@ -151,7 +155,5 @@ while len(players_dict.keys()) < 100:
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
-attack(possession, intercepting)
 
-teamsgen()
-print(teams)
+print(players_dict)

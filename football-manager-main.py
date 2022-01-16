@@ -10,9 +10,9 @@ names = ["Farter", "Frank", "Bruce", "Butcher", "Eddie", "Edward", "Russell", "M
          "Bobby", "Doug", "Douglas", "Eric", "Terry", "Terrible", "Fantastic", "Michael", "Mike",
          "Timothy", "Leon", "Timmy", "Ericsson", "Knight", "Fishmonger", "Killer", "Ken", "Kenneth",
          "Kevin", "Kev", "Fencepost", "Billy", "Richard", "Scotch", "Beercan", "Davis", "Philip",
-         "Arthur", "Clark", "Boozer"]
+         "Arthur", "Clark", "Boozer", "Ronald", "Dick", "Robert"]
 
-positions = ["forward", "midfield", "defence", "goal"]
+positions = ["Forward", "Midfield", "Defence", "Goal"]
 
 towns = ["Altringham", "Bolton", "Chorlton", "Stockport", "Audenshaw", "Blackrod", "Bury", "Oldham",
          "Salford", "Failsworth", "Hyde", "Middleton", "Wigan", "Urmston", "Ramsbottom", "Hindley"]
@@ -22,6 +22,9 @@ teamnamecomponents = ["Athletic", "Wanderers", "City", "Town", "United", "Tackle
 
 teams = ['Athletico Mince']
 
+searchlist = []
+
+searchresult = []
 
 #prints through the nested player dictionary and prints in a pretty format
 
@@ -36,14 +39,21 @@ def printdictionary(dictionary):
 # looks for an item in a nested dictionary matching a search, returns them as a list called search result
 
 
-searchresult = []
-
 def dictionarysearch(dictionary, item, search):
 
     for p_id, p_info in dictionary.items():
         if p_info[item] == search:
             searchresult.append(p_id)
 
+
+# takes two arguements into dictionary search
+
+
+def doubledictionarysearch(dictionary, item, search, item2, search2):
+
+    for p_id, p_info in dictionary.items():
+        if p_info[item] == search and p_info[item2] == search2:
+            searchresult.append(p_id)
 
 # Dice, returns a random number between parameters, low and high
 
@@ -170,9 +180,12 @@ defn = ''
 
 
 # Makes players
+teamsgen()
 
 while len(players_dict.keys()) < 120:
     newplayer()
+
+
 
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
@@ -184,23 +197,30 @@ intercepting = 'DouglasUppity'
 # Using a for loop of all the players in searchresult list it adds the player key to a temporary list and a specific item
 # This specific example then finds the max of that item and uses the index to return the dictionary key from search result
 
-dictionarysearch(players_dict, 'Team', 'Athletico Mince')
+# attempting to add a goal position to every team, so far not working due to scope issues.
 
-searchlist = []
+print(teams)
 
-for x in searchresult:
-    for p_id, p_info in players_dict.items():
-        if p_id == x:
-#            print(p_id + ' ' + str(p_info['DefSkill']))
+for xteam in teams:
+# below here works if 'xteam' is a specific team, but the above For Loop breaks it because of scope
+    dictionarysearch(players_dict, 'Team', xteam)
 
-#creates a temporary list of dictionary items, that can be compared to search result
-            searchlist.append(p_info['DefSkill'])
 
-            max_value = max(searchlist)
-            max_index = searchlist.index(max_value)
-print(searchlist[max_index])
-print(searchresult[max_index])
+    for xplayer in searchresult:
+        for p_id, p_info in players_dict.items():
+            if p_id == xplayer:
+    #            print(p_id + ' ' + str(p_info['DefSkill']))
 
+    #creates a temporary list of dictionary items, that can be compared to search result
+                searchlist.append(p_info['DefSkill'])
+
+                max_value = max(searchlist)
+                max_index = searchlist.index(max_value)
+
+            searchresult[max_index]
+            players_dict[searchresult[max_index]]['Position'] = 'Goal'
+
+    print(players_dict[searchresult[max_index]])
 
 
 #printdictionary(players_dict)

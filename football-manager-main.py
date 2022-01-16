@@ -32,6 +32,10 @@ def printdictionary(dictionary):
         for key in p_info:
             print(key + ':', p_info[key])
 
+
+# looks for an item in a nested dictionary matching a search, returns them as a list called search result
+
+
 searchresult = []
 
 def dictionarysearch(dictionary, item, search):
@@ -173,11 +177,30 @@ while len(players_dict.keys()) < 120:
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
-#printdict
-# onary(players_dict)
 
-# looks for an item in a nested dictionary matching a search, returns them as a list called search result
-
+# Trying to find the player in a team with the max defence skill so I can assign them as a Goalkeeper
+# Quite challenging due to nested dictionaries. MySQL may be simpler in the future
+# Does a dictionary search to create a list of the players in a team (list called searchresult)
+# Using a for loop of all the players in searchresult list it adds the player key to a temporary list and a specific item
+# This specific example then finds the max of that item and uses the index to return the dictionary key from search result
 
 dictionarysearch(players_dict, 'Team', 'Athletico Mince')
-print(searchresult)
+
+searchlist = []
+
+for x in searchresult:
+    for p_id, p_info in players_dict.items():
+        if p_id == x:
+#            print(p_id + ' ' + str(p_info['DefSkill']))
+
+#creates a temporary list of dictionary items, that can be compared to search result
+            searchlist.append(p_info['DefSkill'])
+
+            max_value = max(searchlist)
+            max_index = searchlist.index(max_value)
+print(searchlist[max_index])
+print(searchresult[max_index])
+
+
+
+#printdictionary(players_dict)

@@ -22,8 +22,6 @@ teamnamecomponents = ["Athletic", "Wanderers", "City", "Town", "United", "Tackle
 
 teams = ['Athletico Mince']
 
-searchlist = []
-
 searchresult = []
 
 #prints through the nested player dictionary and prints in a pretty format
@@ -179,8 +177,7 @@ attk = ''
 defn = ''
 
 
-# Makes players
-teamsgen()
+# Makes players and adds them to teams
 
 while len(players_dict.keys()) < 120:
     newplayer()
@@ -191,6 +188,8 @@ possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
 
+
+#archived for now moved to Branch
 # Trying to find the player in a team with the max defence skill so I can assign them as a Goalkeeper
 # Quite challenging due to nested dictionaries. MySQL may be simpler in the future
 # Does a dictionary search to create a list of the players in a team (list called searchresult)
@@ -198,29 +197,25 @@ intercepting = 'DouglasUppity'
 # This specific example then finds the max of that item and uses the index to return the dictionary key from search result
 
 # attempting to add a goal position to every team, so far not working due to scope issues.
+#searchlist = []
 
-print(teams)
-
-for xteam in teams:
+#for x in teams:
 # below here works if 'xteam' is a specific team, but the above For Loop breaks it because of scope
-    dictionarysearch(players_dict, 'Team', xteam)
+#    dictionarysearch(players_dict, 'Team', x)
+
+#    for xplayer in searchresult:
+#       for p_id, p_info in players_dict.items():
+#            if p_id == xplayer:
+
+    #creates a temporary list of dictionary items, that can be compared to search result to return a dict key
+#                searchlist.append(p_info['DefSkill'])
+#                print(searchlist)
+#                max_value = max(searchlist)
+#                max_index = searchlist.index(max_value)
+#                searchresult[max_index]
+#                players_dict[searchresult[max_index]]['Position'] = 'Goal'
+#                print(players_dict[searchresult[max_index]])
+#    searchresult = ''
 
 
-    for xplayer in searchresult:
-        for p_id, p_info in players_dict.items():
-            if p_id == xplayer:
-    #            print(p_id + ' ' + str(p_info['DefSkill']))
-
-    #creates a temporary list of dictionary items, that can be compared to search result
-                searchlist.append(p_info['DefSkill'])
-
-                max_value = max(searchlist)
-                max_index = searchlist.index(max_value)
-
-            searchresult[max_index]
-            players_dict[searchresult[max_index]]['Position'] = 'Goal'
-
-    print(players_dict[searchresult[max_index]])
-
-
-#printdictionary(players_dict)
+printdictionary(players_dict)

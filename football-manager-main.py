@@ -187,35 +187,8 @@ while len(players_dict.keys()) < 120:
 possession = 'StevenConfident'
 intercepting = 'DouglasUppity'
 
+#randomly assigns positions to players, bit of an issue as not every position will necessarily be filled
 
-
-#archived for now moved to Branch
-# Trying to find the player in a team with the max defence skill so I can assign them as a Goalkeeper
-# Quite challenging due to nested dictionaries. MySQL may be simpler in the future
-# Does a dictionary search to create a list of the players in a team (list called searchresult)
-# Using a for loop of all the players in searchresult list it adds the player key to a temporary list and a specific item
-# This specific example then finds the max of that item and uses the index to return the dictionary key from search result
-
-# attempting to add a goal position to every team, so far not working due to scope issues.
-#searchlist = []
-
-#for x in teams:
-# below here works if 'xteam' is a specific team, but the above For Loop breaks it because of scope
-#    dictionarysearch(players_dict, 'Team', x)
-
-#    for xplayer in searchresult:
-#       for p_id, p_info in players_dict.items():
-#            if p_id == xplayer:
-
-    #creates a temporary list of dictionary items, that can be compared to search result to return a dict key
-#                searchlist.append(p_info['DefSkill'])
-#                print(searchlist)
-#                max_value = max(searchlist)
-#                max_index = searchlist.index(max_value)
-#                searchresult[max_index]
-#                players_dict[searchresult[max_index]]['Position'] = 'Goal'
-#                print(players_dict[searchresult[max_index]])
-#    searchresult = ''
-
-
-printdictionary(players_dict)
+dictionarysearch(players_dict, 'Position', '')
+for x in searchresult:
+    players_dict[x]['Position'] = randlistitem(positions)

@@ -157,7 +157,7 @@ def attack(attacker, defender):
     adjective(attk, defn)
     if attk > defn:
         print(players_dict[attacker]['Name'] + adject + ' dribbles past ' + players_dict[defender]['Name'])
-        pitchposition = +1
+        pitchposition = pitchposition+1
         print('and moves to '+positions[pitchposition])
     else:
         possession = defender
@@ -263,7 +263,6 @@ print(hometeam + ' vs ' + awayteam)
 
 kickoff = hometeam
 
-
 doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
 possession = randlistitem(searchresult)
 doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')
@@ -274,6 +273,9 @@ print(players_dict[possession]['Team'] + '\'s ' + players_dict[possession]['Name
 
 while positions[pitchposition] != 'Goal':
     attack(possession, intercepting)
-    doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
-    intercepting = randlistitem(searchresult)
-    attack(possession, intercepting)
+    if players_dict[possession]['Team'] == hometeam:
+        doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
+        intercepting = randlistitem(searchresult)
+    else:
+        doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
+        intercepting = randlistitem(searchresult)

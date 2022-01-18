@@ -1,8 +1,8 @@
 import random
 
-players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': 'Forward',
+players_dict = dict(StevenConfident={'Name': 'Steven Confident', 'Position': '',
                                      'AttackSkill': 7, 'DefSkill': 3, 'Team': 'Athletico Mince'},
-                    DouglasUppity={'Name': 'Douglas Uppity', 'Position': 'Forward',
+                    DouglasUppity={'Name': 'Douglas Uppity', 'Position': '',
                                    'AttackSkill': 4, 'DefSkill': 6, 'Team': 'Athletico Mince'})
 
 
@@ -38,7 +38,7 @@ def printdictionary(dictionary):
 
 
 def dictionarysearch(dictionary, item, search):
-
+    searchresult.clear()
     for p_id, p_info in dictionary.items():
         if p_info[item] == search:
             searchresult.append(p_id)
@@ -48,7 +48,7 @@ def dictionarysearch(dictionary, item, search):
 
 
 def doubledictionarysearch(dictionary, item, search, item2, search2):
-
+    searchresult.clear()
     for p_id, p_info in dictionary.items():
         if p_info[item] == search and p_info[item2] == search2:
             searchresult.append(p_id)
@@ -123,16 +123,16 @@ def playerskills():
 # every time it's called with the unique ID Player+1. Position and name are currently blank
 
 
-def newplayer():
+def newplayer(xteam):
     namegen()
     playerskills()
-    teamsgen()
     players_dict[namecode] = {}
     players_dict[namecode]['Name'] = newname
     players_dict[namecode]['Position'] = ''
     players_dict[namecode]['AttackSkill'] = attackskill
     players_dict[namecode]['DefSkill'] = defskill
-    players_dict[namecode]['Team'] = randlistitem(teams)
+    players_dict[namecode]['Team'] = xteam
+
 
 def adjective(attk, defn):
     global adject
@@ -175,20 +175,105 @@ intercepting = ''
 adject = ''
 attk = ''
 defn = ''
+searchlist = []
+max_index = 0
+
+# Makes teams
+
+teamsgen()
+
+# goes through the teams and adds a number of players per team.
+
+for xteam in teams:
+    dictionarysearch(players_dict, 'Team', xteam)
+
+    while len(searchresult) <= 19:
+        newplayer(xteam)
+        dictionarysearch(players_dict, 'Team', xteam)
 
 
-# Makes players and adds them to teams
-
-while len(players_dict.keys()) < 120:
-    newplayer()
+# assigns 'Goal' position to each team by finding the player with the highest DefSkill,
+# however the first goal position is always the first player because of the looping way I've written this.
 
 
+for xteam in teams:
+    dictionarysearch(players_dict, 'Team', xteam)
+    searchlist.clear()
 
-possession = 'StevenConfident'
-intercepting = 'DouglasUppity'
+    for xplayer in searchresult:
+        searchlist.append(players_dict[xplayer]['DefSkill'])
+        max_value = max(searchlist)
+        max_index = searchlist.index(max_value)
 
-#randomly assigns positions to players, bit of an issue as not every position will necessarily be filled
+    players_dict[searchresult[max_index]]['Position'] = 'Goal'
 
-dictionarysearch(players_dict, 'Position', '')
-for x in searchresult:
-    players_dict[x]['Position'] = randlistitem(positions)
+
+# counts how many players in each team have the position Defence, if it's less than or equal to 3 it'll find all players with no position
+# it then finds the player with the highest def skill and assigns 'Forward' it loops until there are 3 defenders
+
+
+doubledictionarysearch(players_dict, 'Team', xteam, 'Position', 'Defence')
+while len(searchresult) <= 3:
+    for xteam in teams:
+        doubledictionarysearch(players_dict, 'Team', xteam, 'Position', '')
+        searchlist.clear()
+
+        for xplayer in searchresult:
+            searchlist.append(players_dict[xplayer]['DefSkill'])
+            max_value = max(searchlist)
+            max_index = searchlist.index(max_value)
+
+        players_dict[searchresult[max_index]]['Position'] = 'Defence'
+        doubledictionarysearch(players_dict, 'Team', xteam, 'Position', 'Defence')
+
+
+# counts how many players in each team have the position forward, if it's less than or equal to 3 it'll find all players with no position
+# it then finds the player with the highest attack skill and assigns 'Forward' it loops until there are 3 Forwards
+
+
+doubledictionarysearch(players_dict, 'Team', xteam, 'Position', 'Forward')
+while len(searchresult) <= 3:
+    for xteam in teams:
+        doubledictionarysearch(players_dict, 'Team', xteam, 'Position', '')
+        searchlist.clear()
+
+        for xplayer in searchresult:
+            searchlist.append(players_dict[xplayer]['AttackSkill'])
+            max_value = max(searchlist)
+            max_index = searchlist.index(max_value)
+
+        players_dict[searchresult[max_index]]['Position'] = 'Forward'
+        doubledictionarysearch(players_dict, 'Team', xteam, 'Position', 'Forward')
+
+# Assigns anyone who doesn't have a position as Midfield
+
+for xteam in teams:
+    doubledictionarysearch(players_dict, 'Team', xteam, 'Position', '')
+
+    for xplayer in searchresult:
+        players_dict[xplayer]['Position'] = 'Midfield'
+
+#printdictionary(players_dict)
+
+# Starting to model a match
+
+hometeam = randlistitem(teams)
+awayteam = randlistitem(teams)
+print(hometeam + ' vs ' + awayteam)
+
+kickoff = hometeam
+
+
+doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
+possession = randlistitem(searchresult)
+doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')
+intercepting = randlistitem(searchresult)
+
+print(players_dict[possession]['Team'] + '\'s ' + players_dict[possession]['Name'] + ' kicks off against '
+      + players_dict[intercepting]['Team'] + '\'s ' + players_dict[intercepting]['Name'])
+
+while positions[pitchposition] != 'Goal':
+    attack(possession, intercepting)
+    doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
+    intercepting = randlistitem(searchresult)
+    attack(possession, intercepting)

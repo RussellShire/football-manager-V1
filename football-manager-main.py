@@ -158,12 +158,25 @@ def attack(attacker, defender):
     if attk > defn:
         print(players_dict[attacker]['Name'] + adject + ' dribbles past ' + players_dict[defender]['Name'])
         pitchposition = pitchposition+1
-        print('and moves to '+positions[pitchposition])
+        print('and moves to ' + players_dict[defender]['Team'] + '\'s ' +positions[pitchposition])
     else:
         possession = defender
         intercepting = attacker
+        pitchposition == 0
         print(players_dict[defender]['Name'] + adject + ' tackles ' + players_dict[attacker]['Name'])
 
+
+def goal():
+    goalareas = ['bottom left corner', 'top left corner', 'right at the keeper', 'bottom right corner', 'top right corner']
+    shotposition = randlistitem(goalareas)
+    if shotposition != 'right at the keeper':
+        keeperdive = ['left', 'right']
+        if keeperdive == 0 and (shotposition == goalareas[0] or shotposition == goalareas[1]):
+            print('save')
+        else:
+            print('Goal!')
+    else:
+        print('shot at the keeper!')
 
 newname = ''
 namecode = ''
@@ -279,3 +292,5 @@ while positions[pitchposition] != 'Goal':
     else:
         doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
         intercepting = randlistitem(searchresult)
+
+goal()

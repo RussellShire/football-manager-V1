@@ -175,8 +175,33 @@ def goal():
             print('save')
         else:
             print('Goal!')
+            pitchposition = 0
+            kickoff(players_dict[intercepting]['Team'])
     else:
         print('shot at the keeper!')
+
+
+def kickoff(kickoff):
+
+    doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
+    possession = randlistitem(searchresult)
+    doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')
+    intercepting = randlistitem(searchresult)
+
+    print(players_dict[possession]['Team'] + '\'s ' + players_dict[possession]['Name'] + ' kicks off against '
+          + players_dict[intercepting]['Team'] + '\'s ' + players_dict[intercepting]['Name'])
+
+    while positions[pitchposition] != 'Goal':
+        attack(possession, intercepting)
+        if players_dict[possession]['Team'] == hometeam:
+            doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
+            intercepting = randlistitem(searchresult)
+        else:
+            doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
+            intercepting = randlistitem(searchresult)
+
+    goal()
+
 
 newname = ''
 namecode = ''
@@ -274,23 +299,4 @@ hometeam = randlistitem(teams)
 awayteam = randlistitem(teams)
 print(hometeam + ' vs ' + awayteam)
 
-kickoff = hometeam
-
-doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
-possession = randlistitem(searchresult)
-doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')
-intercepting = randlistitem(searchresult)
-
-print(players_dict[possession]['Team'] + '\'s ' + players_dict[possession]['Name'] + ' kicks off against '
-      + players_dict[intercepting]['Team'] + '\'s ' + players_dict[intercepting]['Name'])
-
-while positions[pitchposition] != 'Goal':
-    attack(possession, intercepting)
-    if players_dict[possession]['Team'] == hometeam:
-        doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
-        intercepting = randlistitem(searchresult)
-    else:
-        doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
-        intercepting = randlistitem(searchresult)
-
-goal()
+kickoff(hometeam)

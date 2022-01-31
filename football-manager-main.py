@@ -167,6 +167,8 @@ def attack(attacker, defender):
 
 
 def goal():
+    global intercepting
+    global pitchposition
     goalareas = ['bottom left corner', 'top left corner', 'right at the keeper', 'bottom right corner', 'top right corner']
     shotposition = randlistitem(goalareas)
     if shotposition != 'right at the keeper':
@@ -182,7 +184,7 @@ def goal():
 
 
 def kickoff(kickoff):
-
+    global intercepting
     doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
     possession = randlistitem(searchresult)
     doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')

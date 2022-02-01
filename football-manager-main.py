@@ -185,6 +185,7 @@ def goal():
 
 def kickoff(kickoff):
     global intercepting
+    global matchtimer
     doubledictionarysearch(players_dict, 'Team', kickoff, 'Position', 'Forward')
     possession = randlistitem(searchresult)
     doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', 'Midfield')
@@ -193,16 +194,23 @@ def kickoff(kickoff):
     print(players_dict[possession]['Team'] + '\'s ' + players_dict[possession]['Name'] + ' kicks off against '
           + players_dict[intercepting]['Team'] + '\'s ' + players_dict[intercepting]['Name'])
 
-    while positions[pitchposition] != 'Goal':
-        attack(possession, intercepting)
-        if players_dict[possession]['Team'] == hometeam:
-            doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
-            intercepting = randlistitem(searchresult)
-        else:
-            doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
-            intercepting = randlistitem(searchresult)
+    while matchtimer <= 15:
+        while positions[pitchposition] != 'Goal':
+            matchtimer = matchtimer+1
+            print(matchtimer)
+            attack(possession, intercepting)
+            if players_dict[possession]['Team'] == hometeam:
+                doubledictionarysearch(players_dict, 'Team', awayteam, 'Position', positions[pitchposition])
+                intercepting = randlistitem(searchresult)
+            else:
+                doubledictionarysearch(players_dict, 'Team', hometeam, 'Position', positions[pitchposition])
+                intercepting = randlistitem(searchresult)
+        goal()
 
-    goal()
+    else:
+        print('Halftime!')
+        kickoff(awayteam)
+
 
 
 newname = ''
@@ -217,6 +225,7 @@ attk = ''
 defn = ''
 searchlist = []
 max_index = 0
+matchtimer = 0
 
 # Makes teams
 
